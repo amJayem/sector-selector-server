@@ -20,10 +20,19 @@ const run = async() =>{
     
     try{
         const sectorCollection = client.db('sector-selector').collection('sectors');
+        const userCollection = client.db('sector-selector').collection('userData');
         app.get('/sectors', async(req,res)=>{
             const sectors = await sectorCollection.find({}).toArray();
             // console.log(sectors);
             res.send(sectors);
+        })
+
+        app.post('/users', async(req, res)=>{
+          const userData = req.body;
+          console.log(userData);
+          const result = await userCollection.insertOne(userData);
+
+          res.send(result);
         })
 
     }
