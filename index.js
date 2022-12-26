@@ -53,6 +53,16 @@ const run = async() =>{
           const result = await userCollection.deleteOne(filter);
 
           res.send(result);
+        });
+
+        // getting one user data
+        app.get('/user/:id', async(req, res)=>{
+          const id = req.params.id;
+          const filter = { _id: ObjectId(id)};
+          const result = await userCollection.findOne(filter);
+          // console.log(result);
+
+          res.send(result);
         })
 
     }
