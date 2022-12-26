@@ -21,18 +21,28 @@ const run = async() =>{
     try{
         const sectorCollection = client.db('sector-selector').collection('sectors');
         const userCollection = client.db('sector-selector').collection('userData');
+
+        // getting data from db
         app.get('/sectors', async(req,res)=>{
             const sectors = await sectorCollection.find({}).toArray();
             // console.log(sectors);
             res.send(sectors);
-        })
+        });
 
+        // posting data to db
         app.post('/users', async(req, res)=>{
           const userData = req.body;
-          console.log(userData);
+          // console.log(userData);
           const result = await userCollection.insertOne(userData);
 
           res.send(result);
+        });
+
+        //getting user data from db
+        app.get('/user-data', async(req,res)=>{
+          const userData = await userCollection.find({}).toArray();
+          console.log(userData);
+          res.send(userData);
         })
 
     }
