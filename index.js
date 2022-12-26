@@ -41,8 +41,18 @@ const run = async() =>{
         //getting user data from db
         app.get('/user-data', async(req,res)=>{
           const userData = await userCollection.find({}).toArray();
-          console.log(userData);
+          // console.log(userData);
           res.send(userData);
+        });
+
+        // delete use data from db
+        app.delete('/delete-user/:id', async(req,res)=>{
+          const id = req.params.id;
+          // console.log(id);
+          const filter = {_id: ObjectId(id)}
+          const result = await userCollection.deleteOne(filter);
+
+          res.send(result);
         })
 
     }
